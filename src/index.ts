@@ -1,4 +1,4 @@
-export { supportedDialects, format, formatDialect } from './sqlFormatter.js';
+export { supportedDialects, format, formatDialect, formatter } from './sqlFormatter.js';
 export { expandPhrases } from './expandPhrases.js';
 
 // Intentionally use "export *" syntax here to make sure when adding a new SQL dialect
