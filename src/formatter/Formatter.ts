@@ -36,6 +36,11 @@ export default class Formatter {
 
     return finalQuery.trimEnd();
   }
+  
+  public format_to_array(query: string): string[] {
+    const ast = this.parse(query);
+    return ast.map(stat => this.formatStatment(stat)).map(query => this.postFormat(query));
+  }
 
   private parse(query: string): StatementNode[] {
     return createParser(this.dialect.tokenizer).parse(query, this.cfg.paramTypes || {});
