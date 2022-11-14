@@ -94,4 +94,26 @@ export const formatDialect = (
   return new Formatter(createDialect(dialect), options).format(query);
 };
 
+/**
+ * Format whitespace in a query to make it easier to read.
+ *
+ * @param {string} query - input SQL query string
+ * @param {FormatOptionsWithLanguage} cfg Configuration options (see docs in README)
+ * @return {Formatter} formatted query
+ */
+export const formatter = (cfg: FormatOptionsWithLanguage = {}): Formatter => {
+  if (typeof cfg.language === 'string' && !supportedDialects.includes(cfg.language)) {
+    throw new ConfigError(`Unsupported SQL dialect: ${cfg.language}`);
+  }
+
+  const canonicalDialectName = dialectNameMap[cfg.language || 'sql'];
+  
+  const options = validateConfig({
+    ...defaultOptions,
+    ...cfg,
+  });
+
+  return new Formatter(createDialect(allDialects[canonicalDialectName]), options);
+};
+
 export type FormatFn = typeof format;
