@@ -39,7 +39,7 @@ export default class Formatter {
   
   public format_to_array(query: string): string[] {
     const ast = this.parse(query);
-    return ast.map(stat => this.formatStatment(stat)).map(query => this.postFormat(query));
+    return ast.map(stat => this.postFormat(this.formatStatment(stat)));
   }
 
   private parse(query: string): StatementNode[] {
